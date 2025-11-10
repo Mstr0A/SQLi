@@ -21,7 +21,7 @@ cd SQLi
 2. Install dependencies
 
 ```bash
-pip install flask mysql-connector-python
+pip install flask mysql-connector-python python-dotenv
 
 # [OPTIONAL] use uv if you have it
 
@@ -31,11 +31,20 @@ uv sync
 3. Configure database connection
 
 - The database schema can be found in `database.sql`
-- Copy `db_example.py` to `db.py`
-- Update the database credentials in `db.py`
+- Copy `.env.example` to `.env`
+- Update the database credentials in `.env`
 
 ```bash
-cp db_example.py db.py
+cp .env.example .env
+```
+
+Your `.env` file should look like this:
+
+```
+USER=root
+PASSWORD=your_password_here
+HOST=localhost
+DATABASE=sqli_demo
 ```
 
 4. Run the application
@@ -44,7 +53,7 @@ cp db_example.py db.py
 python main.py
 ```
 
-5. Open your browser and navigate to `http://127.0.0.1:5000`
+5. Open your browser and navigate to `http://127.0.0.1:5050`
 
 ## SQL Injection Examples
 
@@ -59,8 +68,8 @@ Try these in the username field:
 ```
 .
 ├── main.py              # Flask application
-├── db.py               # Database connection (not in repo)
-├── db_example.py       # Example database config
+├── .env.example         # Example environment config
+├── database.sql         # Database schema
 └── templates/
     ├── index.html      # Login page
     └── result.html     # Result page

@@ -1,5 +1,18 @@
-from db import get_db_connection
+import os
+import mysql.connector
+from dotenv import load_dotenv
 from flask import Flask, request, render_template
+
+load_dotenv()
+
+
+def get_db_connection():
+    return mysql.connector.connect(
+        user=os.getenv("USER"),
+        password=os.getenv("PASSWORD"),
+        host=os.getenv("HOST"),
+        database=os.getenv("DATABASE"),
+    )
 
 
 app = Flask(__name__)
@@ -41,8 +54,7 @@ def login():
         except Exception as e:
             cursor.close()
             connection.close()
-            print(e)
-            exit(-1)
+            return f"<h1>ERROR</h1><pre>{str(e)}</pre>", 500
     else:
         return {"GET": "SENT"}
 
